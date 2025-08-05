@@ -1,26 +1,21 @@
 import sys
 from awsglue.context import GlueContext
 from pyspark.context import SparkContext
-from awsglue.utils import getResolvedOptions
 from awsglue.job import Job
 
-# Initialize contexts
-args = getResolvedOptions(sys.argv, ['JOB_NAME'])
-sc = SparkContext()
-glueContext = GlueContext(sc)
+# Setup Spark + Glue context
+glueContext = GlueContext(SparkContext.getOrCreate())
 spark = glueContext.spark_session
 job = Job(glueContext)
-job.init(args['JOB_NAME'], args)
 
-# Load CSV from S3
-input_path = "s3://telco-churn-data-hauwa/raw/WA_Fn-UseC_-Telco-Customer-Churn.csv"
-df = spark.read.option("header", True).csv(input_path)
+# ✅ READ from raw S3
+df = spark.read.csv("s3://telco-churn-data-hauwa/raw/WA_Fn-UseC_-Telco-Customer-Churn.csv", header=True)
 
-# Simple data cleaning: remove rows with nulls
-df_clean = df.dropna()
+# 🧼 CLEAN the data (remove rows with nulls)
+df = df.dropna()
 
-# Save to S3 in Parquet format
-output_path = "s3://telco-churn-data-hauwa/processed/"
-df_clean.write.mode("overwrite").parquet(output_path)
+# ✅ WRITE to processed S3 in Parquet format
+df.write.parquet("s3://telco-churn-data-hauwa/processed/", mode="overwrite")
 
+# ✅ Mark job complete
 job.commit()
