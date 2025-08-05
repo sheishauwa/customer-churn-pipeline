@@ -2,23 +2,36 @@ provider "aws" {
   region = "us-east-1"
 }
 
-# 🪪 Random suffix generator (not used, kept for future safety)
 resource "random_id" "bucket_suffix" {
   byte_length = 4
 }
 
-# 🪣 Reference existing S3 bucket - No creation to avoid BucketAlreadyExists error
-data "aws_s3_bucket" "existing_telco_data" {
+resource "aws_s3_bucket" "telco_data" {
   bucket = "telco-churn-data-hauwa"
+
+  tags = {
+    Name = "Telco Churn Data Bucket"
+  }
 }
 
-# 👤 Reference existing IAM role - Don't recreate
-data "aws_iam_role" "existing_glue_role" {
+resource "aws_iam_role" "glue_service_role" {
   name = "glue_service_role"
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Action = "sts:AssumeRole",
+        Effect = "Allow",
+        Principal = {
+          Service = "glue.amazonaws.com"
+        }
+      }
+    ]
+  })
 }
 
-# ✅ Attach Glue policy to existing role
 resource "aws_iam_role_policy_attachment" "glue_policy" {
-  role       = data.aws_iam_role.existing_glue_role.name
+  role       = aws_iam_role.glue_service_role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSGlueServiceRole"
 }
+
