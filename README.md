@@ -85,7 +85,7 @@ The ML script takes the ML-ready output and performs:
 ### 🔄 ETL Flow Diagram
 
 > Raw ➜ Processed ➜ ML-ready stages of the data pipeline.
-![ETL Flow](docs/images/etl-flow.png)
+![ETL Flow](images/etl-flow.png)
 
 ---
 
