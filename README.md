@@ -59,17 +59,9 @@ s3://telco-churn-data-hauwa/
 - 📌 Description: End-to-end architecture of the pipeline
 ![Architecture Diagram](images/architecture.png)
 
-
-### `etl-flow.png`
-- 📌 Description: ETL steps from raw to ML-ready
-- 📷 Location: `docs/images/etl-flow.png`
-- 🛠 How to: Draw raw ➜ processed ➜ ml-ready flow
-
 ### `s3-output.png`
 - 📌 Description: Screenshot of S3 folders with ML-ready churn partitions
 ![ML-ready Screenshort](images/ml_image.png)
-
-```
 
 ---
 
