@@ -18,14 +18,17 @@ This project implements an **end-to-end customer churn prediction pipeline** for
 
 ## 🧬 Dataset Structure in S3
 
+```plaintext
 s3://telco-churn-data-hauwa/
 ├── raw/
-│ └── WA_Fn-UseC_-Telco-Customer-Churn.csv
+│   └── WA_Fn-UseC_-Telco-Customer-Churn.csv
 ├── processed/
-│ └── *.parquet
+│   └── *.parquet
 └── ml-ready/
-├── Churn=Yes/
-└── Churn=No/
+    ├── Churn=Yes/
+    └── Churn=No/
+```
+
 
 ---
 
