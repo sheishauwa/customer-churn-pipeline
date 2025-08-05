@@ -56,8 +56,9 @@ s3://telco-churn-data-hauwa/
 ## 📸 Screenshots & Architecture
 
 ### `Architectur`
-![Architecture Diagram](images/architecture.png)
 - 📌 Description: End-to-end architecture of the pipeline
+![Architecture Diagram](images/architecture.png)
+
 
 ### `etl-flow.png`
 - 📌 Description: ETL steps from raw to ML-ready
