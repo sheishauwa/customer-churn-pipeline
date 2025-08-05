@@ -20,13 +20,12 @@ This project implements an **end-to-end customer churn prediction pipeline** for
 
 s3://telco-churn-data-hauwa/
 ├── raw/
-│   └── WA_Fn-UseC_-Telco-Customer-Churn.csv
+│ └── WA_Fn-UseC_-Telco-Customer-Churn.csv
 ├── processed/
-│   └── *.parquet
+│ └── *.parquet
 └── ml-ready/
-    ├── Churn=Yes/
-    └── Churn=No/
-```
+├── Churn=Yes/
+└── Churn=No/
 
 ---
 
@@ -77,18 +76,12 @@ The ML script takes the ML-ready output and performs:
 
 ### 🏗️ Architecture Diagram
 > End-to-end pipeline architecture from ingestion to monitoring.
-
-📷 `images/architecture.png`
-
 ![Architecture Diagram](images/architecture.png)
 ---
 
 ### 🔄 ETL Flow Diagram
 
 > Raw ➜ Processed ➜ ML-ready stages of the data pipeline.
-
-📷 `docs/images/etl-flow.png`
-
 ![ETL Flow](docs/images/etl-flow.png)
 
 ---
@@ -96,9 +89,6 @@ The ML script takes the ML-ready output and performs:
 ### 📁 S3 Output Screenshot
 
 > Screenshot showing partitioned ML-ready output on S3.
-
-📷 `images/ml_image.png`
-
 ![ML Output on S3](images/ml_image.png)
 ---
 
