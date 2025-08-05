@@ -1,21 +1,23 @@
-# Customer Churn Prediction & Retention Pipeline
+# 📉 Customer Churn Prediction & Retention Pipeline
 
 ## 📌 Project Overview
-This project implements an **end-to-end customer churn prediction pipeline** for a telecom company using the IBM Telco Customer Churn dataset. It covers:
 
+This project implements an **end-to-end customer churn prediction pipeline** for a telecom company using the IBM Telco Customer Churn dataset. It automates the entire lifecycle from raw data ingestion to ML-ready transformation, infrastructure-as-code, and CI/CD deployment.
+
+### ✅ Key Features:
 - Infrastructure provisioning with **Terraform**
 - Configuration automation with **Ansible**
-- ETL and data processing with **AWS Glue & PySpark**
-- Data storage and partitioning with **S3**
+- ETL and data processing using **AWS Glue & PySpark**
+- Data partitioning for ML consumption using **S3**
 - CI/CD deployment with **GitHub Actions**
-- Real-time job monitoring using **CloudWatch**
-- IAM-based access management
-- ML model for churn prediction with ML-ready output
+- Real-time monitoring via **CloudWatch**
+- IAM-based access control
+- ML script for churn prediction
 
 ---
 
-## 🧬 Dataset Path in S3
-```
+## 🧬 Dataset Structure in S3
+
 s3://telco-churn-data-hauwa/
 ├── raw/
 │   └── WA_Fn-UseC_-Telco-Customer-Churn.csv
@@ -29,49 +31,91 @@ s3://telco-churn-data-hauwa/
 ---
 
 ## ⚙️ Technologies Used
-- **AWS S3** - Data lake for raw, processed, and ML-ready data
-- **AWS Glue** - ETL pipeline for cleaning, transforming, partitioning
-- **Terraform** - Infrastructure provisioning
-- **Ansible** - Post-deploy automation
-- **GitHub Actions** - CI/CD automation for IaC deployments
-- **CloudWatch** - Monitoring Glue job runs
-- **IAM** - Secure access management
-- **PySpark** - Spark data processing
-- **Python** - ML prediction script
+
+| Tool | Purpose |
+|------|---------|
+| **AWS S3** | Data storage (raw, processed, ML-ready) |
+| **AWS Glue** | Serverless ETL using PySpark |
+| **Terraform** | Infrastructure-as-Code |
+| **Ansible** | Post-provisioning configuration |
+| **GitHub Actions** | CI/CD pipeline for deployment |
+| **CloudWatch** | Monitoring and logs |
+| **IAM** | Secure access and role management |
+| **PySpark** | Data transformation scripts |
+| **Python** | ML script for churn prediction |
 
 ---
 
 ## 🔁 ETL Workflow
-1. Upload raw CSV to `s3://telco-churn-data-hauwa/raw/`
-2. Run Glue ETL job:
-   - Cleans & drops nulls
-   - Converts to Parquet
-   - Saves to `processed/`
-3. ML-ready transformation:
-   - Partitioned into `Churn=Yes/No` folders
-   - Output stored in `ml-ready/`
+
+1. 📥 Upload raw dataset to `s3://telco-churn-data-hauwa/raw/`
+2. ⚙️ Glue ETL Job:
+   - Drops nulls & irrelevant columns
+   - Converts CSV → Parquet format
+   - Writes to `processed/` folder
+3. 🔀 Second ETL:
+   - Encodes churn column
+   - Writes ML-ready data partitioned by `Churn=Yes/No` in `ml-ready/`
 
 ---
 
-## 📸 Screenshots & Architecture
+## 🧠 Machine Learning Script
 
-### `Architectur`
-- 📌 Description: End-to-end architecture of the pipeline
-![Architecture Diagram](images/architecture.png)
+> Located in: `scripts/churn_predictor.py`
 
-### `s3-output.png`
-- 📌 Description: Screenshot of S3 folders with ML-ready churn partitions
-![ML-ready Screenshort](images/ml_image.png)
+The ML script takes the ML-ready output and performs:
+
+- Label encoding
+- Train-test split
+- Training a classifier (e.g., Random Forest)
+- Predicting churn probabilities
+- Saving output as CSV or pushing to S3
 
 ---
 
-## ✅ Deployment Steps
-1. **Upload Dataset** to S3 `raw/`
-2. **Terraform Apply** to provision infra
-3. **Ansible Playbook** (if needed) to configure resources
-4. **Run GitHub Actions CI/CD** to trigger Glue Job
-5. **Verify in Glue Job Run & S3 Output**
-6. **Run ML Script** for churn prediction on processed data
+## 📸 Architecture & Diagrams
+
+### 🏗️ Architecture Diagram
+> End-to-end pipeline architecture from ingestion to monitoring.
+
+📷 `images/architecture.png`
+
+![Architecture](images/architecture.png)
+
+---
+
+### 🔄 ETL Flow Diagram
+
+> Raw ➜ Processed ➜ ML-ready stages of the data pipeline.
+
+📷 `docs/images/etl-flow.png`
+
+![ETL Flow](docs/images/etl-flow.png)
+
+---
+
+### 📁 S3 Output Screenshot
+
+> Screenshot showing partitioned ML-ready output on S3.
+
+📷 `images/ml_image.png`
+
+![ML Output on S3](images/ml_image.png)
+
+---
+
+
+## 🚀 Deployment Guide
+
+> Step-by-step to run the pipeline from scratch.
+
+1. **Upload Dataset** to `s3://telco-churn-data-hauwa/raw/`
+2. Run `terraform apply` to provision all AWS infrastructure.
+3. Run `ansible-playbook configure.yml` (optional).
+4. Push to GitHub to trigger **GitHub Actions** for deployment.
+5. Monitor the **Glue Job** from AWS Console.
+6. Validate S3 output in `ml-ready/Churn=Yes/` and `Churn=No/`
+7. Run `churn_predictor.py` to apply ML predictions.
 
 ---
 
@@ -80,4 +124,3 @@ s3://telco-churn-data-hauwa/
 - 📧 hauwa.dbtech@gmail.com
 - 🔗 [LinkedIn](https://www.linkedin.com/in/hauwa-kulu-njidda)
 
----
