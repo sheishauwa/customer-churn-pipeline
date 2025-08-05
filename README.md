@@ -80,8 +80,7 @@ The ML script takes the ML-ready output and performs:
 
 📷 `images/architecture.png`
 
-![Architecture](images/architecture.png)
-
+![Architecture Diagram](images/architecture.png)
 ---
 
 ### 🔄 ETL Flow Diagram
@@ -101,9 +100,7 @@ The ML script takes the ML-ready output and performs:
 📷 `images/ml_image.png`
 
 ![ML Output on S3](images/ml_image.png)
-
 ---
-
 
 ## 🚀 Deployment Guide
 
